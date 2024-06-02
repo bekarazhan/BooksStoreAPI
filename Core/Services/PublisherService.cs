@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using BooksStoreAPI.Interfaces;
-using BooksStoreAPI.Models;
-using BooksStoreAPI.ViewModels;
+using BooksStoreAPI.Core.Interfaces;
+using BooksStoreAPI.Core.Models.DTOs;
+using BooksStoreAPI.Core.Models.Entities;
 
 namespace BooksStoreAPI.Services
 {
@@ -16,26 +16,26 @@ namespace BooksStoreAPI.Services
             _mapper = mapper;
         }
 
-        public async Task<List<PublisherVm>> GetAllPublishers()
+        public async Task<List<PublisherDto>> GetAllPublishers()
         {
             var publishers = await _publisherRepository.GetAllPublishers();
-            return _mapper.Map<List<PublisherVm>>(publishers);
+            return _mapper.Map<List<PublisherDto>>(publishers);
         }
 
-        public async Task<PublisherVm> GetPublisherById(int id)
+        public async Task<PublisherDto> GetPublisherById(int id)
         {
             var publisher = await _publisherRepository.GetPublisherById(id);
-            return _mapper.Map<PublisherVm>(publisher);
+            return _mapper.Map<PublisherDto>(publisher);
         }
 
-        public async Task<PublisherVm> AddPublisher(PublisherVm publisherDTO)
+        public async Task<PublisherDto> AddPublisher(PublisherDto publisherDTO)
         {
             var publisher = _mapper.Map<Publisher>(publisherDTO);
             var addedPublisher = await _publisherRepository.AddPublisher(publisher);
-            return _mapper.Map<PublisherVm>(addedPublisher);
+            return _mapper.Map<PublisherDto>(addedPublisher);
         }
 
-        public async Task UpdatePublisher(PublisherVm publisherDTO)
+        public async Task UpdatePublisher(PublisherDto publisherDTO)
         {
             var publisher = _mapper.Map<Publisher>(publisherDTO);
             await _publisherRepository.UpdatePublisher(publisher);

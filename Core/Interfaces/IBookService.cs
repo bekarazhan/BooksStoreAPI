@@ -5,11 +5,11 @@ namespace BooksStoreAPI.Core.Interfaces
 {
     public interface IBookService
     {
-        Task<List<BookDto>> GetAllBooks();
-        Task<BookDto> GetBookById(int id);
-        Task<BookDto> AddBook(Book bookDTO);
-        Task UpdateBook(BookDto bookDTO);
-        Task DeleteBook(int id);
+        Task<IEnumerable<BookDto>> GetAllBooksAsync();
+        Task<BookDto> GetBookByIdAsync(int id);
+        Task AddBookAsync(BookDto book);
+        Task UpdateBookAsync(BookDto book);
+        Task DeleteBookAsync(int id);
     }
 
 }
