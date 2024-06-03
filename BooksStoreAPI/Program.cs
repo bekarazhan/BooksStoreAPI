@@ -7,6 +7,8 @@ using BooksStoreAPI.Middlewares;
 using BooksStoreAPI.Services;
 using BookStoreAPI.Infrastructure;
 using BookStoreAPI.Infrastructure.Data;
+using Core.Interfaces;
+using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,7 @@ builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
 builder.Services.AddScoped<IPublisherService, PublisherService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<BookContext>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 app.UseMiddleware<FakeAuthenticationMiddleware>();

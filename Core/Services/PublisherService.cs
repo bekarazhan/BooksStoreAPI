@@ -18,32 +18,32 @@ namespace BooksStoreAPI.Services
 
         public async Task<List<PublisherDto>> GetAllPublishers()
         {
-            var publishers = await _publisherRepository.GetAllPublishers();
+            var publishers = await _publisherRepository.ListAllAsync();
             return _mapper.Map<List<PublisherDto>>(publishers);
         }
 
         public async Task<PublisherDto> GetPublisherById(int id)
         {
-            var publisher = await _publisherRepository.GetPublisherById(id);
+            var publisher = await _publisherRepository.GetByIdAsync(id);
             return _mapper.Map<PublisherDto>(publisher);
         }
 
         public async Task<PublisherDto> AddPublisher(PublisherDto publisherDTO)
         {
             var publisher = _mapper.Map<Publisher>(publisherDTO);
-            var addedPublisher = await _publisherRepository.AddPublisher(publisher);
+            var addedPublisher = await _publisherRepository.AddAsync(publisher);
             return _mapper.Map<PublisherDto>(addedPublisher);
         }
 
         public async Task UpdatePublisher(PublisherDto publisherDTO)
         {
             var publisher = _mapper.Map<Publisher>(publisherDTO);
-            await _publisherRepository.UpdatePublisher(publisher);
+            await _publisherRepository.UpdateAsync(publisher);
         }
 
         public async Task DeletePublisher(int id)
         {
-            await _publisherRepository.DeletePublisher(id);
+            await _publisherRepository.DeleteAsync(id);
         }
     }
 }

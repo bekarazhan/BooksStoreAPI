@@ -1,51 +1,23 @@
 ﻿using BooksStoreAPI.Core.Interfaces;
 using BooksStoreAPI.Core.Models.Entities;
 using BookStoreAPI.Infrastructure.Data;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreAPI.Infrastructure
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         private readonly BookContext _context;
 
-        public BookRepository(BookContext context)
+        public BookRepository(BookContext context):base(context)
         {
             _context = context;
         }
 
-        public async Task<Book> AddBook(Book book)
+        public async Task<List<Book>> GetBooksOrderedByTitleAsync()
         {
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
-            return book;
-        }
-
-        public async Task DeleteBook(int id)
-        {
-            var book = await _context.Books.FindAsync(id);
-            if (book != null)
-            {
-                _context.Books.Remove(book);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        public async Task<List<Book>> GetAllBooks()
-        {
-            return await _context.Books.Include(x => x.Publisher).ToListAsync();
-        }
-
-        public async Task<Book> GetBookById(int id)
-        {
-            return await _context.Books.FindAsync(id);
-
-        }
-
-        public async Task UpdateBook(Book book)
-        {
-            _context.Books.Update(book);
-            await _context.SaveChangesAsync();
+            return await _context.Books.OrderBy(x => x.Title).ToListAsync();
         }
     }
 }

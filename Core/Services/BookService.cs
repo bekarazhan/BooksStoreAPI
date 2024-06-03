@@ -18,13 +18,13 @@ namespace BooksStoreAPI.Core.Services
 
         public async Task<IEnumerable<BookDto>> GetAllBooksAsync()
         {
-            var books = await _bookRepository.GetAllBooks();
+            var books = await _bookRepository.ListAllAsync();
             return _mapper.Map<IEnumerable<BookDto>>(books);
         }
 
         public async Task<BookDto> GetBookByIdAsync(int id)
         {
-            var book = await _bookRepository.GetBookById(id);
+            var book = await _bookRepository.GetByIdAsync(id);
             if (book == null) return null;
 
             return _mapper.Map<BookDto>(book);
@@ -33,12 +33,12 @@ namespace BooksStoreAPI.Core.Services
         public async Task AddBookAsync(BookDto BookDto)
         {
             var book = _mapper.Map<Book>(BookDto);
-            await _bookRepository.AddBook(book);
+            await _bookRepository.AddAsync(book);
         }
 
         public async Task UpdateBookAsync(BookDto BookDto)
         {
-            var existingBook = await _bookRepository.GetBookById(BookDto.Id);
+            var existingBook = await _bookRepository.GetByIdAsync(BookDto.Id);
             if (existingBook == null)
             {
                 throw new ArgumentException("Book not found.");
@@ -47,12 +47,12 @@ namespace BooksStoreAPI.Core.Services
             // Map changes from BookDto to existing Book entity
             _mapper.Map(BookDto, existingBook);
 
-            await _bookRepository.UpdateBook(existingBook);
+            await _bookRepository.UpdateAsync(existingBook);
         }
 
         public async Task DeleteBookAsync(int id)
         {
-            await _bookRepository.DeleteBook(id);
+            await _bookRepository.DeleteAsync(id);
 
         }
     }
