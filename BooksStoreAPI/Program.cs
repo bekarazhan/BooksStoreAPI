@@ -3,6 +3,7 @@ using AutoMapper;
 using BooksShop.Repositories;
 using BooksStoreAPI.Core.Interfaces;
 using BooksStoreAPI.Core.Services;
+using BooksStoreAPI.Middlewares;
 using BooksStoreAPI.Services;
 using BookStoreAPI.Infrastructure;
 using BookStoreAPI.Infrastructure.Data;
@@ -24,6 +25,9 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<BookContext>();
 
 var app = builder.Build();
+app.UseMiddleware<FakeAuthenticationMiddleware>();
+app.UseMiddleware<AuthorizationMiddleware>();
+app.UseCustomMiddleware();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
