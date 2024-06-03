@@ -10,6 +10,9 @@ namespace BooksStoreAPI.Core.Interfaces
         Task AddBookAsync(BookDto book);
         Task UpdateBookAsync(BookDto book);
         Task DeleteBookAsync(int id);
+
+        Task<IEnumerable<BookDto>> GetBooksOrderedByTitleAsync();
+        Task<IEnumerable<BookDto>> GetBooksOrderedDescByTitleAsync();
     }
 
 }

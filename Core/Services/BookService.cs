@@ -22,6 +22,18 @@ namespace BooksStoreAPI.Core.Services
             return _mapper.Map<IEnumerable<BookDto>>(books);
         }
 
+        public async Task<IEnumerable<BookDto>> GetBooksOrderedByTitleAsync()
+        {
+            var books = await _bookRepository.GetBooksOrderedByTitleAsync();
+            return _mapper.Map<IEnumerable<BookDto>>(books);
+        }
+
+        public async Task<IEnumerable<BookDto>> GetBooksOrderedDescByTitleAsync()
+        {
+            var books = await _bookRepository.GetBooksOrderedDescByTitleAsync();
+            return _mapper.Map<IEnumerable<BookDto>>(books);
+        }
+
         public async Task<BookDto> GetBookByIdAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);

@@ -5,7 +5,8 @@ namespace BooksStoreAPI.Core.Interfaces
 {
     public interface IBookRepository: IGenericRepository<Book>
     {
-        Task<List<Book>> GetBooksOrderedByTitleAsync();
+        Task<IReadOnlyList<Book>> GetBooksOrderedByTitleAsync();
+        Task<IReadOnlyList<Book>> GetBooksOrderedDescByTitleAsync();
     }
 
 }

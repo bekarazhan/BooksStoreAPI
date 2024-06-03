@@ -25,6 +25,20 @@ namespace BooksShop.Controllers
             return Ok(books);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooksOrderedByTitle()
+        {
+            var books = await _bookService.GetBooksOrderedByTitleAsync();
+            return Ok(books);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BookDto>>> GetBooksOrderedDescByTitle()
+        {
+            var books = await _bookService.GetBooksOrderedDescByTitleAsync();
+            return Ok(books);
+        }
+
         // GET: api/Books/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> GetBook(int id)

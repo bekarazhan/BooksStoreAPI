@@ -15,9 +15,13 @@ namespace BookStoreAPI.Infrastructure
             _context = context;
         }
 
-        public async Task<List<Book>> GetBooksOrderedByTitleAsync()
+        public async Task<IReadOnlyList<Book>> GetBooksOrderedByTitleAsync()
         {
             return await _context.Books.OrderBy(x => x.Title).ToListAsync();
+        }
+        public async Task<IReadOnlyList<Book>> GetBooksOrderedDescByTitleAsync()
+        {
+            return await _context.Books.OrderByDescending(x => x.Title).ToListAsync();
         }
     }
 }
