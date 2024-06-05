@@ -43,7 +43,7 @@ namespace BooksShop.Controllers
         public async Task<ActionResult> PostBook(BookDto bookDto)
         {
             await _bookService.AddBookAsync(bookDto);
-            return CreatedAtAction(nameof(GetBook), new { id = bookDto.Id }, bookDto);
+            return Ok(bookDto);
         }
 
         // PUT: api/Books/5

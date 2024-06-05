@@ -38,7 +38,10 @@ namespace BooksStoreAPI.Core.Services
 
         public async Task UpdateBookAsync(BookDto BookDto)
         {
-            var existingBook = await _bookRepository.GetByIdAsync(BookDto.Id);
+            if (BookDto.Id==null) {
+                throw new ArgumentNullException(nameof(BookDto));
+            }
+            var existingBook = await _bookRepository.GetByIdAsync((int)BookDto.Id);
             if (existingBook == null)
             {
                 throw new ArgumentException("Book not found.");
